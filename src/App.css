@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+.App {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(130, 28, 214);
+  color: #fff;
+}
+
+
+
+.nav-link {
+  width: 40%;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  color: #fff;
+}
+
+.link {
+  color: #fff;
+  transition: 100ms;
+}
+
+.link:hover {
+  color: rgb(189, 189, 189);
+  transition: 100ms;
+}
