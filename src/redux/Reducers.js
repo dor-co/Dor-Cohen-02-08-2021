@@ -3,7 +3,8 @@ import * as actions from "./Consts";
 const initialState = {
   data: [],
   key: '',
-  forecast: []
+  forecast: [],
+  currentForecast: []
 };
 
 const selectCityReducer = (state = initialState, action) => {
@@ -12,7 +13,8 @@ const selectCityReducer = (state = initialState, action) => {
       return {
         data: action.data,
         key: action.key,
-        forecast: action.fiveDaysForecast
+        forecast: action.fiveDaysForecast,
+        currentForecast: action.currentForecast
       };
 
     default:
