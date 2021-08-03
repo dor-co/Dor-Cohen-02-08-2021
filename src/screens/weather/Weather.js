@@ -6,6 +6,8 @@ import { chooseCity } from "../../redux/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import WeatherCard from "../../components/weatherCard/WeatherCard";
 import Modal from '../../components/modal/Modal';
+import "firebase/firestore";
+import { useFirestore } from "reactfire";
 
 function Weather() {
 
@@ -26,10 +28,37 @@ function Weather() {
     { Maximum: 30, Minimum: 20 },
     { Maximum: 30, Minimum: 20 }
   ]);
+  const [firebaseData, setFirebaseData] = useState([]);
 
   useEffect(() => {
     getLocations();
   }, [])
+
+  const db = useFirestore();
+
+  const useItems = (itemType, callback, items) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            await db
+                .collection(itemType)
+                .onSnapshot((snapshot) => {
+                    let listItems = [];
+
+                    listItems = snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    }));
+                    callback(listItems);
+                });
+        };
+        fetchData();
+    }, []);
+    return items;
+};
+
+useItems("Weathers", setFirebaseData, firebaseData);
+
+console.log(firebaseData[0]?.testField)
 
   const getLocations = async () => {
     // const response = await axios.get(
