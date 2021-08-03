@@ -7,7 +7,7 @@ function Modall() {
     const modalRed = useSelector((state) => state.modalReducer);
     const dispatch = useDispatch();
 
-    console.log('t/f', modalRed);
+    // console.log('t/f', modalRed);
 
     const closeModal = () => {
         return dispatch(close());
