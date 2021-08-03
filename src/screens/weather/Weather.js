@@ -17,6 +17,7 @@ function Weather() {
   const [selectCity, setSelectCity] = useState('');
   const [cityCode, setCityCode] = useState('');
   const [forecast, setForecast] = useState([]);
+  const [currentFroecast, setCurrentFroecast] = useState([]);
   const [testArray, setTestArray] = useState([
     { Maximum: 30, Minimum: 20 },
     { Maximum: 30, Minimum: 20 },
@@ -43,16 +44,24 @@ function Weather() {
 
 
     // const res = await axios.get(
-    //   `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=Pcam0PjGtEMwkxAAI0LL8lIjSlpwkHFS&details=true`
-    // );    
+    //   `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2&details=true`
+    // );   
+    
+    // const currentRes = await axios.get(
+    //  `http://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2`
+    // );
 
-    //setForecast(res);
+    // setForecast(res);
+    // setCurrentFroecast(currentRes)
+    setCurrentFroecast(local.current);
     setForecast(local.fiveDays)
+
   }
 
   // console.log(forecast.data.DailyForecasts);
 
-  console.log(forecast.DailyForecasts)
+  console.log(forecast)
+  console.log('@@@@@', currentFroecast);
 
   const selectChange = (opt) => {
     setSelectCity(opt.target.value);
@@ -61,7 +70,8 @@ function Weather() {
     getForecast(key);
     console.log(key, opt.target.value, forecast.DailyForecasts);
 
-    dispatch(chooseCity(opt.target.value, key, forecast.DailyForecasts));
+    // dispatch(chooseCity(opt.target.value, key, forecast.data?.DailyForecasts));
+    dispatch(chooseCity(opt.target.value, key, forecast.DailyForecasts, currentFroecast));
 
   }
 

@@ -1,0 +1,12 @@
+.cardStyle{
+    display: table-cell !important;
+    width: 170px;
+    text-align: center;
+    padding: 10px;
+}
+
+.cardContainer{
+    display: table;
+    margin: auto;
+    margin-top: 150px;
+}
