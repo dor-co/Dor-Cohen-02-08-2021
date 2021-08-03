@@ -3,11 +3,22 @@ import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import './Style.css';
 import Moment from "react-moment";
+import Modal from "../../components/modal/Modal";
+import { open } from "../../redux/Actions";
 
 function WeatherCard() {
     const selectCityRed = useSelector((state) => state.selectCityReducer);
+    const dispatch = useDispatch();
 
     console.log('selectCityReducer Card', selectCityRed)
+
+    const openModal = (add) => {
+        dispatch(open(add));
+    }
+
+    const addToFavorite = () => {
+        openModal('Add To Favorite!')
+    }
 
     return (
         <div>
@@ -15,6 +26,8 @@ function WeatherCard() {
                 <>
                     <h1>{selectCityRed.data}</h1>
                     <h4>{selectCityRed.currentForecast[0]?.WeatherText}</h4>
+                    <Button onClick={addToFavorite}>add to favorite</Button>
+
                     <div className='cardContainer'>
                         {selectCityRed.forecast.map(e => {
                             return (
@@ -24,12 +37,11 @@ function WeatherCard() {
                                     </h4>
                                     <h4>Max Temp: {e.Temperature.Maximum.Value}</h4>
                                     <h4>Min Temp: {e.Temperature.Minimum.Value}</h4>
-
-                                    <Button>add to favorite</Button>
                                 </div>
                             );
                         })}
                     </div>
+                    <Modal />
                 </>
             ) : (
                 null
