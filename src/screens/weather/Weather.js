@@ -5,6 +5,7 @@ import * as local from "../../localApi";
 import { chooseCity } from "../../redux/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import WeatherCard from "../../components/weatherCard/WeatherCard";
+import Modal from '../../components/modal/Modal';
 
 function Weather() {
 
@@ -84,7 +85,7 @@ function Weather() {
       ) : (
         <>
           <h1>weather</h1>
-
+          {/* <Modal show={true} text={'from weather'}/> */}
           <div className="col-md-3 position-relative selectContainer">
             <select data-live-search="true" data-live-search-style="startsWith" onChange={selectChange} className="form-select selectStyle" id="validationTooltip04" required>
               {/* {data.data.map((item) => { */}

@@ -10,9 +10,15 @@ export const chooseCity = (option, keyCode, forecast, current) => {
   };
 };
 
-// export const getData = (movie) => {
-//   return {
-//     type: actions.GET_MOVIES_DATA,
-//     data: movie
-//   };
-// };
+export const open = (modalBody) => {
+  return {
+    type: actions.OPEN_MODAL,
+    body: modalBody
+  };
+};
+
+export const close = () => {
+  return {
+    type: actions.CLOSE_MODAL,
+  };
+};
