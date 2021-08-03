@@ -1,9 +1,11 @@
 import * as actions from "./Consts";
 
-export const chooseCity = (option) => {
+export const chooseCity = (option, keyCode, forecast) => {
   return {
     type: actions.CHOOSE_CITY,
-    data: option
+    data: option,
+    key: keyCode,
+    fiveDaysForecast: forecast
   };
 };
 
