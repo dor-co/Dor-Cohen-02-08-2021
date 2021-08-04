@@ -3,10 +3,19 @@
     margin: 5px;
     width: 170px;
     text-align: center;
+    border-color: #c8c8c8 !important;
 }
 
 .cardContainer{
     display: table;
     margin: auto;
     margin-top: 80px;
+}
+
+.headerContainer{
+    margin-left: 20px;
+}
+
+.currForecast{
+    color: #858585;
 }

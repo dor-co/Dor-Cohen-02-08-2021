@@ -66,7 +66,13 @@ function Weather() {
     // const response = await axios.get(
     // `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2`
     // );
+    // setData(response.data);
+    
     setData(local.LOCAL_API);
+
+    if(selectCityRed.data.length < 1){
+      dispatch(chooseCity("Tel Aviv", "215854", local.fiveDays.DailyForecasts, local.current));
+    }
   }
 
   const getForecast = async (key) => {
@@ -127,7 +133,7 @@ function Weather() {
         </>
       ) : (
         <>
-          <h1 className='weatherTitle'>weather</h1>
+          <h1 className='weatherTitle'>Weather's Cities</h1>
           <div className='selectContainer'>
             <Select
               options={data.map((item) => {
@@ -137,7 +143,7 @@ function Weather() {
                 };
               })}
               onChange={selectChange}
-              defaultValue={{ label: 'Tel Aviv', value: '215854' }}
+              // defaultValue={{ label: 'Tel Aviv', value: '215854' }}
             />
           </div>
           {/* <Modal show={true} text={'from weather'}/> */}

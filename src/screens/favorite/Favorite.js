@@ -2,6 +2,8 @@ import '../../App.css';
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useState, useEffect } from 'react';
+import FavoriteCard from '../../components/favoriteCard/FavoriteCard';
+import './Style.css';
 
 function Favorite() {
   const [firebaseData, setFirebaseData] = useState([]);
@@ -34,12 +36,12 @@ function Favorite() {
 
   return (
     <div>
-      <h1>favorite list</h1>
+      <h1 className='titleStyle'>Favorite List</h1>
       {firebaseData
         // .filter(e => e.isFavorite === true)
         .map(item => {
           return(
-            <h3>{item.city}</h3>
+            <FavoriteCard item={item} />
           );
         })}
     </div>
