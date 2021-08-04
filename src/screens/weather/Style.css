@@ -1,0 +1,8 @@
+.weatherTitle{
+    text-align: center;
+}
+
+.selectContainer{
+    position: absolute;
+    right: 10px;
+}
