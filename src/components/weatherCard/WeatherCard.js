@@ -50,7 +50,8 @@ function WeatherCard() {
         if (firebaseData.findIndex(x => x.city === selectCityRed.data) === -1) {
             db.collection("Weathers")
                 .add({
-                    city: selectCityRed.data
+                    city: selectCityRed.data,
+                    currentWeather: selectCityRed.currentForecast[0].WeatherText
                 });
             openModal('Added To Favorite!')
         } else {
@@ -65,23 +66,25 @@ function WeatherCard() {
         <div>
             {selectCityRed.forecast !== undefined && selectCityRed.currentForecast !== undefined ? (
                 <>
-                    <h1>{selectCityRed.data}</h1>
-                    <h4>{selectCityRed.currentForecast[0]?.WeatherText}</h4>
-                    <Button onClick={addToFavorite}>
-                        {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1 
-                        ? ('add to favorite') 
-                        : ('remove from favorive')}
-                    </Button>
+                    <div className='headerContainer'>
+                        <h1>{selectCityRed.data}</h1>
+                        <h4 className='currForecast'>{selectCityRed.currentForecast[0]?.WeatherText}</h4>
+                        <Button onClick={addToFavorite}>
+                            {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1
+                                ? ('add to favorite')
+                                : ('remove from favorive')}
+                        </Button>
+                    </div>
 
                     <div className='cardContainer'>
                         {selectCityRed.forecast.map(e => {
                             return (
-                                <div className="card border-dark mb-3 cardStyle">
+                                <div className="card mb-3 cardStyle">
                                     <h4 className='card-header'>
                                         <Moment format='dddd'>{e.Date}</Moment>
                                     </h4>
-                                    <h4>Max Temp: {e.Temperature.Maximum.Value}</h4>
-                                    <h4>Min Temp: {e.Temperature.Minimum.Value}</h4>
+                                    <h4>{e.Temperature.Minimum.Value}°F</h4>
+                                    <h4>{e.Temperature.Maximum.Value}°F</h4>
                                 </div>
                             );
                         })}

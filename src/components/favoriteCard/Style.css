@@ -1,0 +1,21 @@
+.FavoriteCardContainer{
+    border: none !important;
+    border-bottom: 2px solid rgb(207, 207, 207) !important;
+    border-radius: 0px !important;
+    margin: 10px !important;
+}
+
+.linkStyle{
+    color: #000;
+    text-decoration: none;
+}
+
+.linkStyle:hover{
+    color: rgb(117, 117, 117);
+}
+
+.removeBtn{
+    position: absolute;
+    top: 33px;
+    right: 15px;
+}
