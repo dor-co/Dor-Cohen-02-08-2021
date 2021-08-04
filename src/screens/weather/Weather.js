@@ -8,6 +8,8 @@ import WeatherCard from "../../components/weatherCard/WeatherCard";
 import Modal from '../../components/modal/Modal';
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
+import Select from '../../components/select/Select';
+import './Style.css';
 
 function Weather() {
 
@@ -28,37 +30,37 @@ function Weather() {
     { Maximum: 30, Minimum: 20 },
     { Maximum: 30, Minimum: 20 }
   ]);
-  const [firebaseData, setFirebaseData] = useState([]);
+//   const [firebaseData, setFirebaseData] = useState([]);
 
   useEffect(() => {
     getLocations();
   }, [])
 
-  const db = useFirestore();
+//   const db = useFirestore();
 
-  const useItems = (itemType, callback, items) => {
-    useEffect(() => {
-        const fetchData = async () => {
-            await db
-                .collection(itemType)
-                .onSnapshot((snapshot) => {
-                    let listItems = [];
+//   const useItems = (itemType, callback, items) => {
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             await db
+//                 .collection(itemType)
+//                 .onSnapshot((snapshot) => {
+//                     let listItems = [];
 
-                    listItems = snapshot.docs.map((doc) => ({
-                        id: doc.id,
-                        ...doc.data(),
-                    }));
-                    callback(listItems);
-                });
-        };
-        fetchData();
-    }, []);
-    return items;
-};
+//                     listItems = snapshot.docs.map((doc) => ({
+//                         id: doc.id,
+//                         ...doc.data(),
+//                     }));
+//                     callback(listItems);
+//                 });
+//         };
+//         fetchData();
+//     }, []);
+//     return items;
+// };
 
-useItems("Weathers", setFirebaseData, firebaseData);
+// useItems("Weathers", setFirebaseData, firebaseData);
 
-console.log(firebaseData[0]?.testField)
+// console.log(firebaseData[0]?.testField)
 
   const getLocations = async () => {
     // const response = await axios.get(
@@ -93,15 +95,27 @@ console.log(firebaseData[0]?.testField)
   console.log(forecast)
   console.log('@@@@@', currentFroecast);
 
+  // const selectChange = (opt) => {
+  //   setSelectCity(opt.target.value);
+  //   const index = data.findIndex(x => x.LocalizedName === opt.target.value);
+  //   const key = data[index].Key;
+  //   getForecast(key);
+  //   console.log(key, opt.target.value, forecast.DailyForecasts);
+
+  //   // dispatch(chooseCity(opt.target.value, key, forecast.data?.DailyForecasts));
+  //   dispatch(chooseCity(opt.target.value, key, forecast.DailyForecasts, currentFroecast));
+
+  // }
+
   const selectChange = (opt) => {
-    setSelectCity(opt.target.value);
-    const index = data.findIndex(x => x.LocalizedName === opt.target.value);
-    const key = data[index].Key;
-    getForecast(key);
-    console.log(key, opt.target.value, forecast.DailyForecasts);
+    setSelectCity(opt.label);
+    // const index = data.findIndex(x => x.LocalizedName === opt.target.value);
+    // const key = opt.value;
+    getForecast(opt.value);
+    console.log(opt.value, opt.label, forecast.DailyForecasts);
 
     // dispatch(chooseCity(opt.target.value, key, forecast.data?.DailyForecasts));
-    dispatch(chooseCity(opt.target.value, key, forecast.DailyForecasts, currentFroecast));
+    dispatch(chooseCity(opt.label, opt.value, forecast.DailyForecasts, currentFroecast));
 
   }
 
@@ -113,12 +127,24 @@ console.log(firebaseData[0]?.testField)
         </>
       ) : (
         <>
-          <h1>weather</h1>
+          <h1 className='weatherTitle'>weather</h1>
+          <div className='selectContainer'>
+            <Select
+              options={data.map((item) => {
+                return {
+                    value: item.Key,
+                    label: item.EnglishName
+                };
+              })}
+              onChange={selectChange}
+              defaultValue={{ label: 'Tel Aviv', value: '215854' }}
+            />
+          </div>
           {/* <Modal show={true} text={'from weather'}/> */}
-          <div className="col-md-3 position-relative selectContainer">
-            <select data-live-search="true" data-live-search-style="startsWith" onChange={selectChange} className="form-select selectStyle" id="validationTooltip04" required>
+          {/* <div className="col-md-3 position-relative selectContainer">
+            <select data-live-search="true" data-live-search-style="startsWith" onChange={selectChange} className="form-select selectStyle" id="validationTooltip04" required> */}
               {/* {data.data.map((item) => { */}
-              {data.map((item) => {
+              {/* {data.map((item) => {
                 return (
                   <>
                     <option>{item.EnglishName}</option>
@@ -128,7 +154,7 @@ console.log(firebaseData[0]?.testField)
             </select>
 
 
-          </div>
+          </div> */}
 
           {/* <div>
             {testArray.map((e) => {

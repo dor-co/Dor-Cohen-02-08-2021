@@ -53,9 +53,10 @@ nav {
 
 
 .nav-link {
-  width: 40%;
   height: 40px;
-  display: flex;
+  position: absolute;
+  right: 0px;
+  display: flex !important;
   justify-content: space-around;
   align-items: center;
   list-style: none;
@@ -65,9 +66,12 @@ nav {
 .link {
   color: #fff;
   transition: 100ms;
+  margin: 10px;
+  margin-top: 20px;
+  text-decoration: none;
 }
 
 .link:hover {
-  color: rgb(189, 189, 189);
-  transition: 100ms;
+  text-decoration: underline;
+  color: #fff;
 }

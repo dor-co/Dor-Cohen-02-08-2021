@@ -36,10 +36,10 @@ function Favorite() {
     <div>
       <h1>favorite list</h1>
       {firebaseData
-        .filter(e => e.isFavorite === true)
+        // .filter(e => e.isFavorite === true)
         .map(item => {
           return(
-            <h3>{item.testField}</h3>
+            <h3>{item.city}</h3>
           );
         })}
     </div>
