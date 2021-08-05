@@ -52,7 +52,7 @@ function Weather() {
       );
 
       const currentRes = await axios.get(
-        `http://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
       );
 
       dispatch(chooseCity("Tel Aviv", "215854", res.data.DailyForecasts, currentRes.data[0].WeatherText));
@@ -65,7 +65,7 @@ function Weather() {
     );
 
     const currentRes = await axios.get(
-      `http://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
     );
 
     // setForecast(res.data.DailyForecasts);
