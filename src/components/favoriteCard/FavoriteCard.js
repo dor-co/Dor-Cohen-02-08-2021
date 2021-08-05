@@ -15,16 +15,16 @@ function FavoriteCard({ item }) {
             .delete()
     }
 
-    // const test = () => {
-    //     console.log(item)
+    const test = () => {
+        console.log(item)
 
 
-    //     dispatch(chooseCity(item.city, "215854", local.fiveDays.DailyForecasts, local.current));
-    // }
+        dispatch(chooseCity(item.city, item.key, item.forecast, item.currentWeather));
+    }
 
     return (
         <div className='card FavoriteCardContainer'>
-            <Link to='/' className='linkStyle'>
+            <Link to='/' className='linkStyle' onClick={test}>
                 <div className='card-body'>
                     <h3>{item.city}</h3>
                     <h5>Current Forecast: {item.currentWeather}</h5>
