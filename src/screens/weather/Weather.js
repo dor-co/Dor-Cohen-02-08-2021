@@ -39,20 +39,20 @@ function Weather() {
   }, [])
 
   const getLocations = async () => {
-    // const response = await axios.get(
-    // `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2`
-    // );
-    // setData(response.data);
+    const response = await axios.get(
+    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT`
+    );
+    setData(response.data);
 
-    setData(local.LOCAL_API);
+    // setData(local.LOCAL_API);
 
     if (selectCityRed.data.length < 1) {
       const res = await axios.get(
-        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&details=true`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
       );
 
       const currentRes = await axios.get(
-        `http://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&details=true`
+        `http://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
       );
 
       dispatch(chooseCity("Tel Aviv", "215854", res.data.DailyForecasts, currentRes.data[0].WeatherText));
@@ -61,11 +61,11 @@ function Weather() {
 
   const getForecast = async (key) => {
     const res = await axios.get(
-      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&details=true`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
     );
 
     const currentRes = await axios.get(
-      `http://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&details=true`
+      `http://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
     );
 
     // setForecast(res.data.DailyForecasts);
