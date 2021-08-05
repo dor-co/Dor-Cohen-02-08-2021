@@ -4,9 +4,13 @@ import { useFirestore } from "reactfire";
 import { useState, useEffect } from 'react';
 import FavoriteCard from '../../components/favoriteCard/FavoriteCard';
 import './Style.css';
+import { useSelector, useDispatch } from "react-redux";
+
 
 function Favorite() {
   const [firebaseData, setFirebaseData] = useState([]);
+  const toggleTempRed = useSelector((state) => state.tempToggle);
+  console.log(toggleTempRed)
 
   const db = useFirestore();
 

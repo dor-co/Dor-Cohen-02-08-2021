@@ -1,7 +1,7 @@
 import * as actions from "./Consts";
 
 export const chooseCity = (option, keyCode, forecast, current) => {
-  console.log(option, keyCode);
+  console.log(option, keyCode, forecast, current);
   return {
     type: actions.CHOOSE_CITY,
     data: option,
@@ -14,12 +14,19 @@ export const chooseCity = (option, keyCode, forecast, current) => {
 export const open = (modalBody) => {
   return {
     type: actions.OPEN_MODAL,
-    body: modalBody
+    body: modalBody,
   };
 };
 
 export const close = () => {
   return {
     type: actions.CLOSE_MODAL,
+  };
+};
+
+export const tempToggle = (val) => {
+  return {
+    type: actions.CHANGE_TEMP,
+    toggle: val
   };
 };

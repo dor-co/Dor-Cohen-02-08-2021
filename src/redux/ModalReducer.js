@@ -2,7 +2,7 @@ import * as actions from "./Consts";
 
 const initialState = {
   boolOpen: false,
-  body: ''
+  body: '',
 };
 
 const modalReducer = (state = initialState, action) => {
