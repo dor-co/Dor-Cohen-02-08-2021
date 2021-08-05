@@ -12,9 +12,13 @@ function WeatherCard() {
     const [firebaseData, setFirebaseData] = useState([]);
 
     const selectCityRed = useSelector((state) => state.selectCityReducer);
+    const toggleTempRed = useSelector((state) => state.tempToggle);
     const dispatch = useDispatch();
 
+    console.log(toggleTempRed)
+
     console.log('selectCityReducer Card', selectCityRed)
+    console.log('type', typeof selectCityRed.currentForecast);
 
     const db = useFirestore();
 
@@ -51,24 +55,24 @@ function WeatherCard() {
             db.collection("Weathers")
                 .add({
                     city: selectCityRed.data,
-                    currentWeather: selectCityRed.currentForecast[0].WeatherText
+                    currentWeather: selectCityRed.currentForecast
                 });
-            openModal('Added To Favorite!')
+            openModal(selectCityRed.data + ' was added to the favorite list!');
         } else {
             let index = firebaseData.findIndex(x => x.city === selectCityRed.data);
             db.collection("Weathers").doc(firebaseData[index].id)
                 .delete()
-            openModal('Removed From Favorite!')
+            openModal(selectCityRed.data + ' was removed from the favorite list!');
         }
     }
 
     return (
         <div>
-            {selectCityRed.forecast !== undefined && selectCityRed.currentForecast !== undefined ? (
+            {selectCityRed.forecast !== undefined && selectCityRed.currentForecast !== undefined && typeof selectCityRed.currentForecast !== 'object' ? (
                 <>
                     <div className='headerContainer'>
-                        <h1>{selectCityRed.data}</h1>
-                        <h4 className='currForecast'>{selectCityRed.currentForecast[0]?.WeatherText}</h4>
+                        <h1>Weather in: {selectCityRed.data}</h1>
+                        <h4 className='currForecast'>Current Forecast: {selectCityRed.currentForecast}</h4>
                         <Button onClick={addToFavorite}>
                             {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1
                                 ? ('add to favorite')
@@ -83,8 +87,14 @@ function WeatherCard() {
                                     <h4 className='card-header'>
                                         <Moment format='dddd'>{e.Date}</Moment>
                                     </h4>
-                                    <h4>{e.Temperature.Minimum.Value}°F</h4>
-                                    <h4>{e.Temperature.Maximum.Value}°F</h4>
+                                    <h4>{toggleTempRed.boolTemp 
+                                        ? (((parseInt(e.Temperature.Minimum.Value)-32)*5/9).toFixed(0) + '°C') 
+                                        : (e.Temperature.Minimum.Value + '°F')}
+                                    </h4>
+                                    <h4>{toggleTempRed.boolTemp 
+                                        ? (((parseInt(e.Temperature.Maximum.Value)-32)*5/9).toFixed(0) + '°C') 
+                                        : (e.Temperature.Maximum.Value + '°F')}
+                                    </h4>
                                 </div>
                             );
                         })}

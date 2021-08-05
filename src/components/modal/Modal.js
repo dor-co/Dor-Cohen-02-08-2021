@@ -2,12 +2,13 @@ import { Button, Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import modalReducer from '../../redux/ModalReducer';
 import { close } from "../../redux/Actions";
+import './Style.css';
 
 function Modall() {
     const modalRed = useSelector((state) => state.modalReducer);
     const dispatch = useDispatch();
 
-    // console.log('t/f', modalRed);
+    console.log('t/f', modalRed);
 
     const closeModal = () => {
         return dispatch(close());
@@ -22,14 +23,9 @@ function Modall() {
             centered={true}
             contentclassname={"modal-content "}
         >
-            <Modal.Header className='modalHeaderStyle'>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    title
-                </Modal.Title>
-            </Modal.Header>
             <Modal.Body>
                 <div className='modalTextStyle'>
-                    <h1>{modalRed.body}</h1>
+                    <h4>{modalRed.body}</h4>
                 </div>
             </Modal.Body>
             <Modal.Footer>
