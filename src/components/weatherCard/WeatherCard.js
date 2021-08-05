@@ -55,7 +55,9 @@ function WeatherCard() {
             db.collection("Weathers")
                 .add({
                     city: selectCityRed.data,
-                    currentWeather: selectCityRed.currentForecast
+                    currentWeather: selectCityRed.currentForecast,
+                    key: selectCityRed.key,
+                    forecast: selectCityRed.forecast
                 });
             openModal(selectCityRed.data + ' was added to the favorite list!');
         } else {
@@ -76,7 +78,7 @@ function WeatherCard() {
                         <Button onClick={addToFavorite}>
                             {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1
                                 ? ('add to favorite')
-                                : ('remove from favorive')}
+                                : ('remove from favorite')}
                         </Button>
                     </div>
 
@@ -87,12 +89,12 @@ function WeatherCard() {
                                     <h4 className='card-header'>
                                         <Moment format='dddd'>{e.Date}</Moment>
                                     </h4>
-                                    <h4>{toggleTempRed.boolTemp 
-                                        ? (((parseInt(e.Temperature.Minimum.Value)-32)*5/9).toFixed(0) + '°C') 
+                                    <h4>{toggleTempRed.boolTemp
+                                        ? (((parseInt(e.Temperature.Minimum.Value) - 32) * 5 / 9).toFixed(0) + '°C')
                                         : (e.Temperature.Minimum.Value + '°F')}
                                     </h4>
-                                    <h4>{toggleTempRed.boolTemp 
-                                        ? (((parseInt(e.Temperature.Maximum.Value)-32)*5/9).toFixed(0) + '°C') 
+                                    <h4>{toggleTempRed.boolTemp
+                                        ? (((parseInt(e.Temperature.Maximum.Value) - 32) * 5 / 9).toFixed(0) + '°C')
                                         : (e.Temperature.Maximum.Value + '°F')}
                                     </h4>
                                 </div>
