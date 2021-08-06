@@ -153,3 +153,17 @@
     margin-left: 20px;
     position: absolute;
   }
+
+  @media (max-width: 768px) {
+      .selectContainer{
+        position: absolute;
+        right: 7px;
+        top: 11%
+    }
+
+    .tempToggleStyle{
+      margin-left: 14px;
+      position: absolute;
+      top: 11%;
+    }
+  }

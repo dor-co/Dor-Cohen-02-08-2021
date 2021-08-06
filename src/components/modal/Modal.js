@@ -3,14 +3,26 @@ import { useSelector, useDispatch } from "react-redux";
 import modalReducer from '../../redux/ModalReducer';
 import { close } from "../../redux/Actions";
 import './Style.css';
+import { useFirestore } from "reactfire";
 
-function Modall() {
+function Modall({text, cityId}) {
     const modalRed = useSelector((state) => state.modalReducer);
     const dispatch = useDispatch();
+    const db = useFirestore();
 
     console.log('t/f', modalRed);
 
+    console.log('checkitemmodal',text)
+
     const closeModal = () => {
+        if (text === 'delete') {
+            db.collection("Weathers").doc(cityId)
+                .delete()
+        }
+        return dispatch(close());
+    }
+
+    const cancel = () => {
         return dispatch(close());
     }
 
@@ -29,6 +41,9 @@ function Modall() {
                 </div>
             </Modal.Body>
             <Modal.Footer>
+                {text === 'delete' && 
+                <Button onClick={cancel}>Cancel</Button>                
+                }
                 <Button onClick={closeModal}>OK</Button>
             </Modal.Footer>
         </Modal>
