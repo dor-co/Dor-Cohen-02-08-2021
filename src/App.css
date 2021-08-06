@@ -46,7 +46,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(64 75 107);
+  background: rgb(120 165 220);
   color: #fff;
 }
 
@@ -74,4 +74,19 @@ nav {
 .link:hover {
   text-decoration: underline;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .link {
+    color: #fff;
+    transition: 100ms;
+    margin: 10px;
+    margin-top: 29px;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+    color: #fff;
+  }
 }

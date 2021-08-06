@@ -40,7 +40,7 @@ function Weather() {
 
   const getLocations = async () => {
     const response = await axios.get(
-    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT`
+    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd`
     );
     setData(response.data);
 
@@ -48,11 +48,11 @@ function Weather() {
 
     if (selectCityRed.data.length < 1) {
       const res = await axios.get(
-        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
       );
 
       const currentRes = await axios.get(
-        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
       );
 
       dispatch(chooseCity("Tel Aviv", "215854", res.data.DailyForecasts, currentRes.data[0].WeatherText));
@@ -61,11 +61,11 @@ function Weather() {
 
   const getForecast = async (key) => {
     const res = await axios.get(
-      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
     );
 
     const currentRes = await axios.get(
-      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=8j7t0np4nHcDaTHN6tXFt4eJc8AWJ2ZT&details=true`
+      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
     );
 
     // setForecast(res.data.DailyForecasts);

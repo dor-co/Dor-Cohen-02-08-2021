@@ -73,7 +73,7 @@ function WeatherCard() {
             {selectCityRed.forecast !== undefined && selectCityRed.currentForecast !== undefined && typeof selectCityRed.currentForecast !== 'object' ? (
                 <>
                     <div className='headerContainer'>
-                        <h1>Weather in: {selectCityRed.data}</h1>
+                        <h1 className='cityNameHeader'>Weather in: {selectCityRed.data}</h1>
                         <h4 className='currForecast'>Current Forecast: {selectCityRed.currentForecast}</h4>
                         <Button onClick={addToFavorite}>
                             {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1

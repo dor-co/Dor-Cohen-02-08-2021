@@ -3,3 +3,11 @@
     left: 20px;
     top: 7px;
 }
+
+@media (max-width: 768px) {
+    .logoNavbar{
+        position: absolute;
+        left: 20px;
+        top: 15px;
+    }
+}
