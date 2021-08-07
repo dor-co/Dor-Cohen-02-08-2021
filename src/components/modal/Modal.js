@@ -14,15 +14,27 @@ function Modall({text, cityId}) {
 
     console.log('checkitemmodal',text)
 
+    console.log(cityId);
+
     const closeModal = () => {
-        if (text === 'delete') {
-            db.collection("Weathers").doc(cityId)
-                .delete()
-        }
+        // if (text === 'delete') {
+        //     db.collection("Weathers").doc(cityId)
+        //         .delete()
+        // }
         return dispatch(close());
     }
 
     const cancel = () => {
+        return dispatch(close());
+    }
+
+    const okDelete = () => {
+
+        console.log('id', cityId)
+        if (text === 'delete') {
+            db.collection("Weathers").doc(cityId)
+                .delete()
+        }
         return dispatch(close());
     }
 
@@ -44,7 +56,7 @@ function Modall({text, cityId}) {
                 {text === 'delete' && 
                 <Button onClick={cancel}>Cancel</Button>                
                 }
-                <Button onClick={closeModal}>OK</Button>
+                <Button onClick={okDelete}>OK</Button>
             </Modal.Footer>
         </Modal>
     );
