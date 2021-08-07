@@ -5,22 +5,31 @@ import Favorite from '../favorite/Favorite';
 import Navbar from '../../components/navbar/Navbar';
 import './Style.css';
 import { useSelector, useDispatch } from "react-redux";
+import { useFirestore, useFirestoreDoc, useFirestoreDocData } from "reactfire";
 
 function Container() {
   const modeRed = useSelector((state) => state.modeToggle);
+  const db = useFirestore();
 
-  console.log(modeRed)
+  const modeRef = db.collection("Settings").doc("mode");
+  const modeRefData = useFirestoreDocData(modeRef).data;
+  const modeStatus = useFirestoreDocData(modeRef).status;
+  console.log('connnnnnnn',modeRefData)
 
   return (
-    <Router>
-      <div className={modeRed.boolTemp ? ('ContainerStyleDark') : ('ContainerStyleLight')}>
-        <Navbar />
-        <Switch>
-          <Route path='/' exact component={Weather} />
-          <Route path='/favorite' component={Favorite} />
-        </Switch>
-      </div>
-    </Router>
+    <>
+      {modeStatus !== 'loading' &&
+        <Router>
+          <div className={modeRefData.themeMode ? ('ContainerStyleDark') : ('ContainerStyleLight')}>
+            <Navbar modeSetting={modeRefData.themeMode} />
+            <Switch>
+              <Route path='/' exact component={Weather} />
+              <Route path='/favorite' component={Favorite} />
+            </Switch>
+          </div>
+        </Router>
+      }
+    </>
   );
 }
 

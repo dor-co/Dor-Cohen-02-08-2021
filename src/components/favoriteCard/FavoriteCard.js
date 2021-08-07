@@ -26,7 +26,7 @@ function FavoriteCard({ item }) {
             <Link to='/' className='linkStyle' onClick={backToWeathers}>
                 <div className='card-body'>
                     <h3>{item.city}</h3>
-                    <h5>Current Forecast: {item.currentWeather}</h5>
+                    <h5 className='currentForecastStyle'>Current Forecast: {item.currentWeather}</h5>
                 </div>
             </Link>
             <Button className='removeBtn' onClick={remove}>Remove city</Button>

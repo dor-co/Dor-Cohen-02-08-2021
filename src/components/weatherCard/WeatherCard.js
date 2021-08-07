@@ -8,7 +8,7 @@ import { open } from "../../redux/Actions";
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 
-function WeatherCard() {
+function WeatherCard({modeSetting, tempSetting}) {
     const [firebaseData, setFirebaseData] = useState([]);
 
     const selectCityRed = useSelector((state) => state.selectCityReducer);
@@ -74,7 +74,7 @@ function WeatherCard() {
             {selectCityRed.forecast !== undefined && selectCityRed.currentForecast !== undefined && typeof selectCityRed.currentForecast !== 'object' ? (
                 <>
                     <div className='headerContainer'>
-                        <h1 className={modeRed.boolTemp ? ('cityNameHeaderDark') : ('cityNameHeaderLight')}>Weather in: {selectCityRed.data}</h1>
+                        <h1 className={modeSetting ? ('cityNameHeaderDark') : ('cityNameHeaderLight')}>Weather in: {selectCityRed.data}</h1>
                         <h4 className='currForecast'>Current Forecast: {selectCityRed.currentForecast}</h4>
                         <Button onClick={addToFavorite}>
                             {firebaseData.findIndex(x => x.city === selectCityRed.data) === -1
@@ -90,11 +90,11 @@ function WeatherCard() {
                                     <h4 className='card-header'>
                                         <Moment format='dddd'>{e.Date}</Moment>
                                     </h4>
-                                    <h4>{toggleTempRed.boolTemp
+                                    <h4>{tempSetting
                                         ? (((parseInt(e.Temperature.Minimum.Value) - 32) * 5 / 9).toFixed(0) + '°C')
                                         : (e.Temperature.Minimum.Value + '°F')}
                                     </h4>
-                                    <h4>{toggleTempRed.boolTemp
+                                    <h4>{tempSetting
                                         ? (((parseInt(e.Temperature.Maximum.Value) - 32) * 5 / 9).toFixed(0) + '°C')
                                         : (e.Temperature.Maximum.Value + '°F')}
                                     </h4>

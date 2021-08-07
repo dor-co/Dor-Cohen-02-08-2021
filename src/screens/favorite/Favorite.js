@@ -1,6 +1,6 @@
 import '../../App.css';
 import "firebase/firestore";
-import { useFirestore } from "reactfire";
+import { useFirestore, useFirestoreDoc, useFirestoreDocData } from "reactfire";
 import { useState, useEffect } from 'react';
 import FavoriteCard from '../../components/favoriteCard/FavoriteCard';
 import './Style.css';
@@ -11,9 +11,12 @@ function Favorite() {
   const [firebaseData, setFirebaseData] = useState([]);
   const toggleTempRed = useSelector((state) => state.tempToggle);
   const modeRed = useSelector((state) => state.modeToggle);
-  console.log(toggleTempRed)
 
   const db = useFirestore();
+
+  const modeRef = db.collection("Settings").doc("mode");
+  const modeRefData = useFirestoreDocData(modeRef).data;
+  const modeStatus = useFirestoreDocData(modeRef).status;
 
   const useItems = (itemType, callback, items) => {
     useEffect(() => {
@@ -40,16 +43,20 @@ function Favorite() {
   console.log(firebaseData)
 
   return (
-    <div>
-      <h1 className={modeRed.boolTemp ? ('favoriteTitleStyleDark') : ('favoriteTitleStyleLight')}>Favorite List</h1>
-      {firebaseData
-        // .filter(e => e.isFavorite === true)
-        .map(item => {
-          return(
-            <FavoriteCard item={item} />
-          );
-        })}
-    </div>
+    <>
+      {modeStatus !== 'loading' &&
+        <div>
+          <h1 className={modeRefData.themeMode ? ('favoriteTitleStyleDark') : ('favoriteTitleStyleLight')}>Favorite List</h1>
+          {firebaseData
+            // .filter(e => e.isFavorite === true)
+            .map(item => {
+              return (
+                <FavoriteCard item={item} />
+              );
+            })}
+        </div>
+      }
+    </>
   );
 }
 

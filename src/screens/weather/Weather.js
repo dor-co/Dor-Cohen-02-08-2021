@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import WeatherCard from "../../components/weatherCard/WeatherCard";
 import Modal from '../../components/modal/Modal';
 import "firebase/firestore";
-import { useFirestore } from "reactfire";
+import { useFirestore, useFirestoreDoc, useFirestoreDocData } from "reactfire";
 import Select from '../../components/select/Select';
 import './Style.css';
 import Toggle from 'react-toggle';
@@ -18,6 +18,15 @@ function Weather() {
 
   const selectCityRed = useSelector((state) => state.selectCityReducer);
   const dispatch = useDispatch();
+  const db = useFirestore();
+
+  const modeRef = db.collection("Settings").doc("mode");
+  const modeRefData = useFirestoreDocData(modeRef).data;
+  const modeStatus = useFirestoreDocData(modeRef).status;
+
+  const tempRef = db.collection("Settings").doc("unit");
+  const tempRefData = useFirestoreDocData(tempRef).data;
+  const tempStatus = useFirestoreDocData(tempRef).status;
 
   // console.log('selectCityReducer', selectCityRed)
 
@@ -34,8 +43,8 @@ function Weather() {
     { Maximum: 30, Minimum: 20 },
     { Maximum: 30, Minimum: 20 }
   ]);
-  const [tempToggleChange, setTempToggleChange] = useState(false);
-  const [modeToggleChange, setModeToggleChange] = useState(false);
+  // const [tempToggleChange, setTempToggleChange] = useState(false);
+  // const [modeToggleChange, setModeToggleChange] = useState(false);
 
   useEffect(() => {
     getLocations();
@@ -43,7 +52,7 @@ function Weather() {
 
   const getLocations = async () => {
     const response = await axios.get(
-    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=Xt86UdSZGkv8iubqOS9wepB2S1ANRMYt`
+    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=jCLPUDFqHDZV7369qCF3gfHGutmpcVKG`
     );
     setData(response.data);
 
@@ -51,11 +60,11 @@ function Weather() {
 
     if (selectCityRed.data.length < 1) {
       const res = await axios.get(
-        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=Xt86UdSZGkv8iubqOS9wepB2S1ANRMYt&details=true`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=jCLPUDFqHDZV7369qCF3gfHGutmpcVKG&details=true`
       );
 
       const currentRes = await axios.get(
-        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=Xt86UdSZGkv8iubqOS9wepB2S1ANRMYt&details=true`
+        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=jCLPUDFqHDZV7369qCF3gfHGutmpcVKG&details=true`
       );
 
       dispatch(chooseCity("Tel Aviv", "215854", res.data.DailyForecasts, currentRes.data[0].WeatherText));
@@ -64,11 +73,11 @@ function Weather() {
 
   const getForecast = async (key) => {
     const res = await axios.get(
-      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=Xt86UdSZGkv8iubqOS9wepB2S1ANRMYt&details=true`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=jCLPUDFqHDZV7369qCF3gfHGutmpcVKG&details=true`
     );
 
     const currentRes = await axios.get(
-      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=Xt86UdSZGkv8iubqOS9wepB2S1ANRMYt&details=true`
+      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=jCLPUDFqHDZV7369qCF3gfHGutmpcVKG&details=true`
     );
 
     // setForecast(res.data.DailyForecasts);
@@ -102,27 +111,33 @@ function Weather() {
     //dispatch(chooseCity(opt.label, opt.value, forecast.DailyForecasts, currentFroecast));
   }
 
-  useEffect(() => {
-    dispatch(tempToggle(tempToggleChange));
-  }, [tempToggleChange])
+  // useEffect(() => {
+  //   dispatch(tempToggle(tempToggleChange));
+  // }, [tempToggleChange])
 
   const toggleChange = () => {
-    setTempToggleChange(!tempToggleChange);
+    // setTempToggleChange(!tempToggleChange);
+    db.collection("Settings").doc("unit").update({
+      tempUnit: !tempRefData.tempUnit
+    })
   }
 
-  useEffect(() => {
-    dispatch(modeToggle(modeToggleChange));
-  }, [modeToggleChange])
+  // useEffect(() => {
+  //   dispatch(modeToggle(modeToggleChange));
+  // }, [modeToggleChange])
 
   const toggleModeChange = () => {
-    setModeToggleChange(!modeToggleChange);
+    // setModeToggleChange(!modeToggleChange);
+    db.collection("Settings").doc("mode").update({
+      themeMode: !modeRefData.themeMode
+    })
   }
 
   return (
     <div>
-      {data.length === 0 ? (
+      {data.length === 0 || modeStatus === 'loading' || tempStatus === 'loading' ? (
         <>
-          <h1>loading...</h1>
+          <h1 className='loadingStyle'>loading...</h1>
         </>
       ) : (
         <>
@@ -130,6 +145,7 @@ function Weather() {
           <label className='tempToggleStyle'>
             <div>
               <Toggle
+                defaultChecked={tempRefData.tempUnit}
                 icons={{
                   checked: <RiIcons.RiCelsiusFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
                   unchecked: <RiIcons.RiFahrenheitFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
@@ -142,6 +158,7 @@ function Weather() {
           <label className='modeToggleStyle'>
             <div>
               <Toggle
+                defaultChecked={modeRefData.themeMode}
                 icons={{
                   checked: <RiIcons.RiMoonFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
                   unchecked: <RiIcons.RiSunFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />
@@ -168,7 +185,7 @@ function Weather() {
             />
           </div>
 
-          <WeatherCard />
+          <WeatherCard modeSetting={modeRefData.themeMode} tempSetting={tempRefData.tempUnit} />
 
         </>
       )
