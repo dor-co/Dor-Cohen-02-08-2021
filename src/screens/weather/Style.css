@@ -152,12 +152,13 @@
   .tempToggleStyle{
     margin-left: 20px;
     position: absolute;
+    top: 12%;
   }
 
   .modeToggleStyle{
     margin-left: 20px;
     position: absolute;
-    top: 115px;
+    top: 18%;
   }
 
   @media (max-width: 768px) {
@@ -170,12 +171,12 @@
     .tempToggleStyle{
       margin-left: 14px;
       position: absolute;
-      top: 11%;
+      top: 12%;
     }
 
     .modeToggleStyle{
       margin-left: 14px;
       position: absolute;
-      top: 120px;
+      top: 17%;
     }
   }
