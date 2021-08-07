@@ -3,6 +3,7 @@ import * as actions from "./Consts";
 const initialState = {
   boolOpen: false,
   body: '',
+  id: ''
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -10,7 +11,8 @@ const modalReducer = (state = initialState, action) => {
     case actions.OPEN_MODAL:
       return {
         boolOpen: true,
-        body: action.body
+        body: action.body,
+        id: action.id
       };
     
     case actions.CLOSE_MODAL:

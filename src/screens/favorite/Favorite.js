@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import FavoriteCard from '../../components/favoriteCard/FavoriteCard';
 import './Style.css';
 import { useSelector, useDispatch } from "react-redux";
-
+import Modal from "../../components/modal/Modal";
 
 function Favorite() {
   const [firebaseData, setFirebaseData] = useState([]);
@@ -17,6 +17,10 @@ function Favorite() {
   const modeRef = db.collection("Settings").doc("mode");
   const modeRefData = useFirestoreDocData(modeRef).data;
   const modeStatus = useFirestoreDocData(modeRef).status;
+
+  const modalRed = useSelector((state) => state.modalReducer);
+
+  console.log('IIIIDDDDD', modalRed);
 
   const useItems = (itemType, callback, items) => {
     useEffect(() => {
@@ -54,6 +58,9 @@ function Favorite() {
                 <FavoriteCard item={item} />
               );
             })}
+
+            <Modal text={'delete'} cityId={modalRed.id} />
+
         </div>
       }
     </>

@@ -11,10 +11,11 @@ export const chooseCity = (option, keyCode, forecast, current) => {
   };
 };
 
-export const open = (modalBody) => {
+export const open = (modalBody, id) => {
   return {
     type: actions.OPEN_MODAL,
     body: modalBody,
+    id: id
   };
 };
 

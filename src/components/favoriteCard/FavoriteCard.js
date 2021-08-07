@@ -9,12 +9,13 @@ import Modal from "../modal/Modal";
 function FavoriteCard({ item }) {
     const dispatch = useDispatch();
 
-    const openModal = (removeCity) => {
-        dispatch(open(removeCity));
+    const openModal = (removeCity, id) => {
+        dispatch(open(removeCity, id));
     }
 
     const remove = () => {
-        openModal('Are you sure you want to delete ' + item.city + ' from the favorite list?');
+        console.log('REMOVE CITY', item.city)
+        openModal('Are you sure you want to delete ' + item.city + ' from the favorite list?', item.id);
     }
 
     const backToWeathers = () => {
@@ -31,7 +32,6 @@ function FavoriteCard({ item }) {
             </Link>
             <Button className='removeBtn' onClick={remove}>Remove city</Button>
 
-            <Modal text={'delete'} cityId={item.id} />
         </div>
     );
 }
