@@ -22,6 +22,10 @@
     color: #858585;
 }
 
+.cityNameHeaderDark{
+    color: #fff;
+}
+
 /* mobile */
 @media (max-width: 768px) {
     .cardStyle{
@@ -52,7 +56,12 @@
         margin-top: 0px;
     }
 
-    .cityNameHeader{
-        margin-top: 65px;
+    .cityNameHeaderDark{
+        margin-top: 95px;
+        color: #fff;
+    }
+
+    .cityNameHeaderLight{
+        margin-top: 95px;
     }
 }

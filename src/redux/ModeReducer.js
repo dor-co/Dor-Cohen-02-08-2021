@@ -6,11 +6,11 @@ const initialState = {
 
 const tempToggle = (state = initialState, action) => {
   switch (action.type) {
-    case actions.CHANGE_TEMP:
+    case actions.CHANGE_MODE:
       return {
         boolTemp: action.toggle,
-      };
-
+      };  
+    
     default:
       return state;
   }

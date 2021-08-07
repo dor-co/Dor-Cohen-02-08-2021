@@ -41,7 +41,7 @@
   text-align: center;
 }
 
-nav {
+.navStyleLight {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -50,7 +50,14 @@ nav {
   color: #fff;
 }
 
-
+.navStyleDark {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(31 31 31);
+  color: #fff;
+}
 
 .nav-link {
   height: 40px;

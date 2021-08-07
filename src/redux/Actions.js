@@ -30,3 +30,10 @@ export const tempToggle = (val) => {
     toggle: val
   };
 };
+
+export const modeToggle = (val) => {
+  return {
+    type: actions.CHANGE_MODE,
+    toggle: val
+  };
+};

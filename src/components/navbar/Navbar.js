@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
 import * as MdIcons from 'react-icons/md';
+import { useSelector, useDispatch } from "react-redux";
 
 function Navbar() {
+    const modeRed = useSelector((state) => state.modeToggle);
 
     return (
-        <nav>
+        <nav className={modeRed.boolTemp ? ('navStyleDark') : ('navStyleLight')}>
             <h3 className='logoNavbar'><MdIcons.MdCloudQueue size={50} /></h3>
             <ul className='nav-link'>
                 <Link className='link' to='/'>
