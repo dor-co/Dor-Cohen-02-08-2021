@@ -1,10 +1,8 @@
 import './Style.css';
 import { Link } from 'react-router-dom';
 import { Button } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { chooseCity, open } from "../../redux/Actions";
-import * as local from "../../localApi";
-import Modal from "../modal/Modal";
 
 function FavoriteCard({ item }) {
     const dispatch = useDispatch();
@@ -14,7 +12,6 @@ function FavoriteCard({ item }) {
     }
 
     const remove = () => {
-        console.log('REMOVE CITY', item.city)
         openModal('Are you sure you want to delete ' + item.city + ' from the favorite list?', item.id);
     }
 
@@ -31,7 +28,6 @@ function FavoriteCard({ item }) {
                 </div>
             </Link>
             <Button className='removeBtn' onClick={remove}>Remove city</Button>
-
         </div>
     );
 }

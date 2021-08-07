@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Container from './screens/container/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,7 +29,6 @@ ReactDOM.render(
     <Provider store={store}>
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <Container />
-        {/* <App /> */}
       </FirebaseAppProvider>
     </Provider>
   </React.StrictMode>,

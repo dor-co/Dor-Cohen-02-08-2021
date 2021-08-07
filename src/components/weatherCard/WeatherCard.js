@@ -8,18 +8,11 @@ import { open } from "../../redux/Actions";
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 
-function WeatherCard({modeSetting, tempSetting}) {
+function WeatherCard({ modeSetting, tempSetting }) {
     const [firebaseData, setFirebaseData] = useState([]);
 
     const selectCityRed = useSelector((state) => state.selectCityReducer);
-    const toggleTempRed = useSelector((state) => state.tempToggle);
-    const modeRed = useSelector((state) => state.modeToggle);
     const dispatch = useDispatch();
-
-    console.log(toggleTempRed)
-
-    console.log('selectCityReducer Card', selectCityRed)
-    console.log('type', typeof selectCityRed.currentForecast);
 
     const db = useFirestore();
 
@@ -50,8 +43,6 @@ function WeatherCard({modeSetting, tempSetting}) {
     }
 
     const addToFavorite = () => {
-        // if the city in the list - remove
-        // else add to the list
         if (firebaseData.findIndex(x => x.city === selectCityRed.data) === -1) {
             db.collection("Weathers")
                 .add({
