@@ -154,16 +154,28 @@
     position: absolute;
   }
 
+  .modeToggleStyle{
+    margin-left: 20px;
+    position: absolute;
+    top: 115px;
+  }
+
   @media (max-width: 768px) {
-      .selectContainer{
-        position: absolute;
-        right: 7px;
-        top: 11%
+    .selectContainer{
+      position: absolute;
+      right: 7px;
+      top: 11%
     }
 
     .tempToggleStyle{
       margin-left: 14px;
       position: absolute;
       top: 11%;
+    }
+
+    .modeToggleStyle{
+      margin-left: 14px;
+      position: absolute;
+      top: 120px;
     }
   }

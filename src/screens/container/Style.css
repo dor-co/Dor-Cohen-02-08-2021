@@ -1,0 +1,21 @@
+.ContainerStyleDark{
+    background: #3c3c3c;
+    height: 100vh;
+}
+
+.ContainerStyleLight{
+    background: #fff;
+    height: 100vh;
+}
+
+@media (max-width: 768px){
+    .ContainerStyleDark{
+        background: #3c3c3c;
+        height: 100%;
+    }
+    
+    .ContainerStyleLight{
+        background: #fff;
+        height: 100%;
+    }
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import * as local from "../../localApi";
-import { chooseCity, tempToggle } from "../../redux/Actions";
+import { chooseCity, tempToggle, modeToggle } from "../../redux/Actions";
 import { useSelector, useDispatch } from "react-redux";
 import WeatherCard from "../../components/weatherCard/WeatherCard";
 import Modal from '../../components/modal/Modal';
@@ -11,6 +11,8 @@ import { useFirestore } from "reactfire";
 import Select from '../../components/select/Select';
 import './Style.css';
 import Toggle from 'react-toggle';
+import * as MdIcons from 'react-icons/md';
+import * as RiIcons from 'react-icons/ri';
 
 function Weather() {
 
@@ -33,6 +35,7 @@ function Weather() {
     { Maximum: 30, Minimum: 20 }
   ]);
   const [tempToggleChange, setTempToggleChange] = useState(false);
+  const [modeToggleChange, setModeToggleChange] = useState(false);
 
   useEffect(() => {
     getLocations();
@@ -40,7 +43,7 @@ function Weather() {
 
   const getLocations = async () => {
     const response = await axios.get(
-    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd`
+    `https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2`
     );
     setData(response.data);
 
@@ -48,11 +51,11 @@ function Weather() {
 
     if (selectCityRed.data.length < 1) {
       const res = await axios.get(
-        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2&details=true`
       );
 
       const currentRes = await axios.get(
-        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
+        `https://dataservice.accuweather.com/currentconditions/v1/215854/?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2&details=true`
       );
 
       dispatch(chooseCity("Tel Aviv", "215854", res.data.DailyForecasts, currentRes.data[0].WeatherText));
@@ -61,11 +64,11 @@ function Weather() {
 
   const getForecast = async (key) => {
     const res = await axios.get(
-      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2&details=true`
     );
 
     const currentRes = await axios.get(
-      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=XzZPNySQrOP2uHrHFXhCpkTaoGSiDhZd&details=true`
+      `https://dataservice.accuweather.com/currentconditions/v1/${key}/?apikey=IKkS8MhS5Ov6zJXtKwQIboaBAgsAtMa2&details=true`
     );
 
     // setForecast(res.data.DailyForecasts);
@@ -104,7 +107,15 @@ function Weather() {
   }, [tempToggleChange])
 
   const toggleChange = () => {
-    setTempToggleChange(!tempToggleChange)
+    setTempToggleChange(!tempToggleChange);
+  }
+
+  useEffect(() => {
+    dispatch(modeToggle(modeToggleChange));
+  }, [modeToggleChange])
+
+  const toggleModeChange = () => {
+    setModeToggleChange(!modeToggleChange);
   }
 
   return (
@@ -117,11 +128,25 @@ function Weather() {
         <>
 
           <label className='tempToggleStyle'>
-            °F - °C
             <div>
               <Toggle
-                icons={false}
+                icons={{
+                  checked: <RiIcons.RiCelsiusFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
+                  unchecked: <RiIcons.RiFahrenheitFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
+                }}
                 onChange={toggleChange}
+              />
+            </div>
+          </label>
+
+          <label className='modeToggleStyle'>
+            <div>
+              <Toggle
+                icons={{
+                  checked: <RiIcons.RiMoonFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />,
+                  unchecked: <RiIcons.RiSunFill style={{marginTop: -2.5, color: 'rgb(223 223 223)'}} size={15} />
+                }}
+                onChange={toggleModeChange}
               />
             </div>
           </label>
