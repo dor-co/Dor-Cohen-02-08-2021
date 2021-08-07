@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 function Favorite() {
   const [firebaseData, setFirebaseData] = useState([]);
   const toggleTempRed = useSelector((state) => state.tempToggle);
+  const modeRed = useSelector((state) => state.modeToggle);
   console.log(toggleTempRed)
 
   const db = useFirestore();
@@ -40,7 +41,7 @@ function Favorite() {
 
   return (
     <div>
-      <h1 className='titleStyle'>Favorite List</h1>
+      <h1 className={modeRed.boolTemp ? ('favoriteTitleStyleDark') : ('favoriteTitleStyleLight')}>Favorite List</h1>
       {firebaseData
         // .filter(e => e.isFavorite === true)
         .map(item => {

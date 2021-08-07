@@ -1,4 +1,10 @@
-.titleStyle{
+.favoriteTitleStyleDark{
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.favoriteTitleStyleLight{
     text-align: center;
     margin-top: 10px;
 }
