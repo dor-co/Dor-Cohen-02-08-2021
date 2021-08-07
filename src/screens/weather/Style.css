@@ -161,6 +161,10 @@
     top: 18%;
   }
 
+  .loadingStyle{
+    color: #858585;
+  }
+
   @media (max-width: 768px) {
     .selectContainer{
       position: absolute;
